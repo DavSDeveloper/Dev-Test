@@ -1,0 +1,172 @@
+/* Estilos generales de la aplicación */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* Estilo para el Header */
+header {
+  background-color: #2980b9;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 2rem;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin: 0 10px;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para los botones */
+button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo para formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3498db;
+}
+
+/* Estilo para los mensajes de error */
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+}
+
+/* Estilos para la lista de compañías */
+.company-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.company-item {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.company-item:hover {
+  transform: translateY(-5px);
+}
+
+.company-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.company-item p {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Estilo para los elementos de carga */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Diseño responsive para pantallas más pequeñas */
+@media (max-width: 768px) {
+  header {
+    padding: 15px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .company-list {
+    grid-template-columns: 1fr;
+  }
+
+  .company-item {
+    padding: 10px;
+  }
+}
