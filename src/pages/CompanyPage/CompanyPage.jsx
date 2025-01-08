@@ -3,14 +3,11 @@ import { useParams } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 
 const CompanyPage = () => {
-  // Obtiene el 'companyId' desde la URL utilizando 'useParams' (parte de React Router)
   const { companyId } = useParams();
-  
-  // Estado que almacena el archivo seleccionado para la carga
+
   const [file, setFile] = useState(null);
-  
-  // TODO En el estado colocar null cuando no haya bloqueo por CORS
-  // Estado que almacena el resultado del análisis del archivo cargado
+
+  // TODO In the state set null when there is no CORS blocking
   const [analysisResult, setAnalysisResult] = useState({
     category: "ELECTRONIC_INVOICE",
     data: {
@@ -44,56 +41,45 @@ const CompanyPage = () => {
     },
     success: true,
   });
-  
-  // Estado para controlar la visibilidad del modal
+
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Función que maneja la selección de archivos
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  // Función que maneja la carga y análisis del archivo
   const handleUpload = async () => {
     if (!file) return alert("Please select a file to upload.");
 
-    // TODO Eliminar esta línea cuando no haya bloqueo por CORS
+    // TODO Remove this line when there is no CORS blocking
     setModalOpen(true);
 
     try {
-      // Carga el archivo en el servidor
       const formData = new FormData();
       formData.append("file", file);
       formData.append("tenant_id", companyId);
 
-      const uploadResponse = await fetch(
-        import.meta.env.VITE_UPLOADER_URL,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `JWT ${localStorage.getItem("token")}`, // Token JWT de autorización
-          },
-          body: formData,
-        }
-      );
+      const uploadResponse = await fetch(import.meta.env.VITE_UPLOADER_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
 
       const uploadData = await uploadResponse.json();
 
-      // Analiza el archivo cargado
-      const analyzeResponse = await fetch(
-        import.meta.env.VITE_DOCUMENTOR_URL,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ file: uploadData.url, qr: false }),
-        }
-      );
+      const analyzeResponse = await fetch(import.meta.env.VITE_DOCUMENTOR_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ file: uploadData.url, qr: false }),
+      });
 
       const analyzeData = await analyzeResponse.json();
-      setAnalysisResult(analyzeData); // Establece el resultado del análisis
-      setModalOpen(true); // Abre el modal para mostrar el resultado
+      setAnalysisResult(analyzeData);
+      setModalOpen(true);
     } catch (error) {
       console.error(error);
       alert("An error occurred while uploading or analyzing the file.");
@@ -111,11 +97,9 @@ const CompanyPage = () => {
         </button>
       </div>
 
-      {/* Modal para visualizar el resultado del análisis */}
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <h2>Analysis Result</h2>
 
-        {/* Información del proveedor */}
         <section className="infoSection">
           <h3>Supplier Information</h3>
           <p>
@@ -132,7 +116,6 @@ const CompanyPage = () => {
           </p>
         </section>
 
-        {/* Resumen de factura */}
         <section className="infoSection">
           <h3>Invoice Summary</h3>
           <p>
@@ -158,13 +141,11 @@ const CompanyPage = () => {
           </p>
         </section>
 
-        {/* Fecha */}
         <section className="infoSection">
           <h3>Due Date</h3>
           <p>{new Date(analysisResult.data.due_date).toLocaleDateString()}</p>
         </section>
 
-        {/* Tabla de productos */}
         <section className="infoSection">
           <h3>Items</h3>
           <table className="itemsTable">

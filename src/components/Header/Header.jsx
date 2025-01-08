@@ -1,36 +1,32 @@
-// Importaciones necesarias
-import React from "react"; // Importa React, la biblioteca principal para construir interfaces de usuario.
-import { useNavigate } from "react-router-dom"; // Hook para la navegación programada.
-import "./Header.css"; // Importa los estilos CSS para el componente.
+import React from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import "./Header.css";
 
-// Componente funcional: Header
-// Este componente muestra el encabezado de la aplicación, con opciones de navegación y cierre de sesión.
-const Header = ({ isAuthenticated, onLogout }) => {
-  const navigate = useNavigate(); // Hook para programar la navegación dentro de la aplicación.
+const Header = () => {
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
-  // Función para navegar a la página de compañías
-  const handleNavigateToCompanies = () => {
-    navigate("/companies"); // Navega a la ruta "/companies".
+  const handleLogout = () => {
+    logout();
+    navigate("/auth/login");
   };
 
   return (
-    <header className="header"> {/* Contenedor principal del encabezado */}
+    <header className="header">
       <div className="header-logo">
-        <h1>Invoices App</h1> {/* Nombre o logo de la aplicación */}
+        <h1>Invoices App</h1>
       </div>
-      <nav className="header-nav"> {/* Contenedor de la navegación */}
-        {isAuthenticated && ( /* Opciones de navegación visibles solo si el usuario está autenticado */
+      <nav className="header-nav">
+        {isAuthenticated && (
           <>
             <button
-              onClick={handleNavigateToCompanies} // Navega a "Companies" al hacer clic.
-              className="navButton"
+              onClick={() => navigate("/companies")}
+              className="companiesButton"
             >
               Companies
             </button>
-            <button
-              onClick={onLogout} // Llama a la función `onLogout` al hacer clic.
-              className="logoutButton"
-            >
+            <button onClick={handleLogout} className="logoutButton">
               Log Out
             </button>
           </>
@@ -40,4 +36,4 @@ const Header = ({ isAuthenticated, onLogout }) => {
   );
 };
 
-export default Header; // Exporta el componente para su uso en otros archivos.
+export default Header;
