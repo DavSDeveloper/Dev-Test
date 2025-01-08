@@ -20,8 +20,8 @@ const Companies = () => {
   const companies = data.me.companies.edges.map(({ node }) => node);
 
   return (
-    <div className="container">
-      <h1>Companies</h1>
+    <div className="p-5">
+      <h1 className="text-4xl text-blue-900 font-bold border-b-4 border-b-blue-900 mb-8 py-4">Companies</h1>
       <CompanyList companies={companies} />
     </div>
   );

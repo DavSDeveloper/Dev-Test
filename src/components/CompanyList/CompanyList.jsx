@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './CompanyList.css';
 
 const CompanyList = ({ companies }) => {
     if (!companies || companies.length === 0) {
@@ -8,10 +7,10 @@ const CompanyList = ({ companies }) => {
     }
 
     return (
-        <ul className='list'>
+        <ul className='list-none p-0 m-0'>
             {companies.map((company) => (
-                <li key={company.id} className='listItem'>
-                    <Link to={`/companies/${company.id}`} className='link'>
+                <li key={company.id} className='my-3 p-3 border-2 border-slate-200 rounded-md hover:bg-slate-100 shadow duration-300'>
+                    <Link to={`/companies/${company.id}`} className='text-blue-600 font-bold text-lg hover:text-blue-800 duration-300'>
                         {company.name}
                     </Link>
                 </li>

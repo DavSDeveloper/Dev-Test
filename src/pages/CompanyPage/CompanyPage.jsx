@@ -87,12 +87,12 @@ const CompanyPage = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Company Details</h1>
+    <div className="max-w-4xl my-0 mx-auto p-5">
+      <h1 className="text-3xl text-slate-900 mb-8">Company Details</h1>
       <p>Company ID: {companyId}</p>
-      <div className="uploadSection">
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload} className="uploadButton">
+      <div className="flex flex-col content-start my-5 mx-0">
+        <input className="p-2 mr-2 text-base" type="file" onChange={handleFileChange} />
+        <button onClick={handleUpload} className="bg-green-700 text-white py-2 px-5 rounded-md cursor-pointer text-base hover:bg-green-900 duration-300">
           Upload and Analyze
         </button>
       </div>
@@ -100,70 +100,70 @@ const CompanyPage = () => {
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <h2>Analysis Result</h2>
 
-        <section className="infoSection">
-          <h3>Supplier Information</h3>
-          <p>
-            <strong>Name:</strong> {analysisResult.data.supplier.name}
+        <section className="mb-5">
+          <h3 className="text-2xl mb-2">Supplier Information</h3>
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Name:</strong> {analysisResult.data.supplier.name}
           </p>
-          <p>
-            <strong>Address:</strong> {analysisResult.data.supplier.address}
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Address:</strong> {analysisResult.data.supplier.address}
           </p>
-          <p>
-            <strong>Email:</strong> {analysisResult.data.supplier.email}
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Email:</strong> {analysisResult.data.supplier.email}
           </p>
-          <p>
-            <strong>Phone:</strong> {analysisResult.data.supplier.phone}
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Phone:</strong> {analysisResult.data.supplier.phone}
           </p>
         </section>
 
-        <section className="infoSection">
-          <h3>Invoice Summary</h3>
-          <p>
-            <strong>Calculated Total:</strong> $
+        <section className="mb-5">
+          <h3 className="text-2xl mb-2">Invoice Summary</h3>
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Calculated Total:</strong> $
             {analysisResult.data.calculated_total.toFixed(2)}
           </p>
-          <p>
-            <strong>Extracted Total:</strong> $
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Extracted Total:</strong> $
             {analysisResult.data.extracted_total.toFixed(2)}
           </p>
-          <p>
-            <strong>Gross Amount:</strong> $
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Gross Amount:</strong> $
             {analysisResult.data.gross_amount.toFixed(2)}
           </p>
-          <p>
-            <strong>
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">
               Tax Amount ({analysisResult.data.lines[0].tax.name}):
             </strong>{" "}
             ${analysisResult.data.taxes_total.toFixed(2)}
           </p>
-          <p>
-            <strong>Total Due:</strong> ${analysisResult.data.total.toFixed(2)}
+          <p className="text-base text-slate-700 my-1 mx-0">
+            <strong className="font-bold">Total Due:</strong> ${analysisResult.data.total.toFixed(2)}
           </p>
         </section>
 
-        <section className="infoSection">
-          <h3>Due Date</h3>
-          <p>{new Date(analysisResult.data.due_date).toLocaleDateString()}</p>
+        <section className="mb-5">
+          <h3 className="text-2xl mb-2">Due Date</h3>
+          <p className="text-base text-slate-700 my-1 mx-0">{new Date(analysisResult.data.due_date).toLocaleDateString()}</p>
         </section>
 
-        <section className="infoSection">
-          <h3>Items</h3>
-          <table className="itemsTable">
+        <section className="mb-5">
+          <h3 className="text-2xl mb-2">Items</h3>
+          <table className="w-full border-collapse mt-5">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
+                <th className="p-2 text-left border-2 border-slate-200">Name</th>
+                <th className="p-2 text-left border-2 border-slate-200">Unit Price</th>
+                <th className="p-2 text-left border-2 border-slate-200">Quantity</th>
+                <th className="p-2 text-left border-2 border-slate-200">Subtotal</th>
               </tr>
             </thead>
             <tbody>
               {analysisResult.data.lines.map((line, index) => (
                 <tr key={index}>
-                  <td>{line.name}</td>
-                  <td>${line.price.toFixed(2)}</td>
-                  <td>{line.quantity}</td>
-                  <td>${(line.price * line.quantity).toFixed(2)}</td>
+                  <td className="p-2 text-left border-2 border-slate-200 text-base">{line.name}</td>
+                  <td className="p-2 text-left border-2 border-slate-200 text-base">${line.price.toFixed(2)}</td>
+                  <td className="p-2 text-left border-2 border-slate-200 text-base">{line.quantity}</td>
+                  <td className="p-2 text-left border-2 border-slate-200 text-base">${(line.price * line.quantity).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
